@@ -30,7 +30,7 @@ def handleQuery(query):
     stripped = query.string.strip()
     if stripped:
         try:
-            lpass = subprocess.Popen(['lpass', 'ls'], stdout=subprocess.PIPE)
+            lpass = subprocess.Popen(['lpass', 'ls', '--long'], stdout=subprocess.PIPE)
             try:
                 output = subprocess.check_output(['grep', stripped], stdin=lpass.stdout)
             except subprocess.CalledProcessError as e:
@@ -43,12 +43,12 @@ def handleQuery(query):
                 )
             items = []
             for line in output.splitlines():
-                match = re.match(r'(.*) \[id: (\d*)\]', line.decode("utf-8"))
+                match = re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2} (.*) \[id: (\d*)\] \[username: (.*)\]', line.decode("utf-8"))
                 items.append(Item(
                     id=__prettyname__,
                     icon=ICON_PATH,
                     text=match.group(1),
-                    subtext=match.group(2),
+                    subtext=match.group(3),
                     completion=query.rawString,
                     actions=[
                         ProcAction("Copy password to clipboard", ["lpass", "show", "-cp", match.group(2)]),
