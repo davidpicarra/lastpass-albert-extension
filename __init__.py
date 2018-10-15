@@ -15,7 +15,6 @@ __dependencies__ = ['lpass']
 if not which('lpass'):
     raise Exception("`lpass` is not in $PATH.")
 
-# ICON_PATH = iconLookup('dialog-password')
 ICON_PATH = os.path.dirname(__file__)+"/lastpass.svg"
 
 def handleQuery(query):
@@ -66,7 +65,7 @@ def handleQuery(query):
                 text=f'Error: {str(e.output)}',
                 subtext=str(e),
                 completion=query.rawString,
-                actions=[ClipAction('Copy password to clipboard', str(e))]
+                actions=[ClipAction('Copy CalledProcessError to clipboard', str(e))]
             )
         except Exception as e:
             return Item(
@@ -75,7 +74,7 @@ def handleQuery(query):
                 text=f'Generic Exception: {str(e)}',
                 subtext=str(e),
                 completion=query.rawString,
-                actions=[ClipAction('Copy password to clipboard', str(e))]
+                actions=[ClipAction('Copy Exception to clipboard', str(e))]
             )
     
     else:
