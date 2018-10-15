@@ -6,7 +6,7 @@ from shutil import which
 from albertv0 import *
 
 __iid__ = 'PythonInterface/v0.1'
-__prettyname__ = 'Lastpass Vault search'
+__prettyname__ = 'LastPass'
 __version__ = '1.0'
 __trigger__ = 'lp '
 __author__ = 'David Piçarra'
