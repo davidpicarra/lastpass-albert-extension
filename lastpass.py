@@ -50,7 +50,11 @@ def handleQuery(query):
                     text=match.group(1),
                     subtext=match.group(2),
                     completion=query.rawString,
-                    actions=[ProcAction("Copy password to clipboard", ["lpass", "show", "-cp", match.group(2)])]
+                    actions=[
+                        ProcAction("Copy password to clipboard", ["lpass", "show", "-cp", match.group(2)]),
+                        ProcAction("Copy username to clipboard", ["lpass", "show", "-cu", match.group(2)]),
+                        ProcAction("Copy notes to clipboard", ["lpass", "show", "-c", "--notes", match.group(2)])
+                    ]
                 ))
 
             return items
