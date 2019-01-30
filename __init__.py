@@ -27,6 +27,22 @@ def handleQuery(query):
         return None
 
     stripped = query.string.strip()
+
+    try:
+        lpass = subprocess.check_output(['lpass', 'status'])
+    except Exception as e:
+        return Item(
+            id=__prettyname__,
+            icon=ICON_PATH,
+            text=f'Not logged in.',
+            subtext=f'Please enter your lastpass email address',
+            completion=query.rawString,
+            actions=[
+                ProcAction("lpass login with given email", ["lpass", "login", stripped]),
+            ]
+        )
+
+
     if stripped:
         try:
             lpass = subprocess.Popen(['lpass', 'ls', '--long'], stdout=subprocess.PIPE)
